@@ -4,38 +4,29 @@ import TrackedLink from "./TrackedLinkComponent";
 import { useInView } from "react-intersection-observer";
 import { cn } from "../lib/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowRight,
-  faArrowRightToFile,
-  faBriefcase,
-  faCode,
-  faCodeBranch,
-  faDownload,
-  faLongArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  faCodepen,
-  faRProject,
-  faUpwork,
-} from "@fortawesome/free-brands-svg-icons";
+import { faBriefcase, faDownload } from "@fortawesome/free-solid-svg-icons";
+import { useRef } from "react";
 
 export const HeroSection = () => {
+  const container = useRef<HTMLDivElement>(null);
+
   const [ref, inView] = useInView({
     threshold: 0.4,
   });
   const resumeUrl =
     "https://github.com/aravindhan2612/aravindhan-b-resume/releases/download/v1.0/Aravindhan_7.pdf";
+
   return (
     <section
       ref={ref}
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center px-4"
     >
-      <div className="container  mx-auto text-center z-10">
+      <div ref={container} className="container  mx-auto text-center z-10">
         <div className="space-y-6">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
             <span className="opacity-0 animate-fade-in"> Welcome, I'm</span>
-            <span className="text-primary opacity-0 animate-fade-in-delay-1">
+            <span className="text-primary opacity-0 animate-fade-in">
               {" "}
               Aravindhan
             </span>

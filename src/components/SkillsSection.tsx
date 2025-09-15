@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { cn } from "../lib/utils";
+import { useInView } from "react-intersection-observer";
 
 const skills = [
   // Frontend
@@ -118,11 +119,15 @@ const categories = ["all", "mobile", "web", "backend", "tools"];
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
+  const [ref, inView] = useInView({
+    threshold: 0.4,
+  });
+
   const filteredSkills = skills.filter(
     (skill) => activeCategory === "all" || skill.category === activeCategory
   );
   return (
-    <section id="skills" className="py-24 px-4 relative bg-secondary/30">
+    <section ref={ref}  id="skills" className="py-24 px-4 relative bg-secondary/30">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
           My <span className="text-primary">Skills</span>
@@ -162,9 +167,11 @@ export const SkillsSection = () => {
                 </div>
                 <div className="w-full bg-secondary/50 h-2 rounded-full overflow-hidden">
                   <div
-                    className="bg-primary h-2 rounded-full origin-left animate-[grow_1.5s_ease-ou]"
+                    className={cn(
+                      "bg-primary h-2 rounded-full origin-left transition-all duration-1000 ease-out ",
+                    )}
                     style={{
-                      width: skill.level + "%",
+                      width: inView ? `${skill.level}%` : `0%`
                     }}
                   />
                 </div>
