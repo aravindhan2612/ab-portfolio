@@ -3,6 +3,8 @@ import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ArrowRight } from "lucide-react";
 import TrackedLink from "./TrackedLinkComponent";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
 
 export interface Project {
   id: number;
@@ -113,6 +115,7 @@ const creativeProjects: Project[] = [
   },
 ];
 export const ProjectSection = () => {
+
   return (
     <section id="projects" className="px-4 relative">
       <div className="container mx-auto max-w-5xl py-10">

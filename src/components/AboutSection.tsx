@@ -24,7 +24,7 @@ export const AboutSection = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className={cn("justify-center flex transition-all duration-700 ease-out transform",
-            inView ? "opacity-100 translate-z-0 scale-100": "opacity-0 translate-z-100 scale-150"
+            inView ? "opacity-100 translate-x-0 ": "opacity-0 -translate-x-100 scale-150"
           )}>
             <img
               src={"/ab-portfolio/projects/dp.jpg"}
@@ -32,7 +32,7 @@ export const AboutSection = () => {
             />
           </div>
           <div className={cn("space-y-6 transition-all duration-700 ease-out transform",
-            inView ? "opacity-100 translate-x-0": "opacity-0 translate-x-1000"
+            inView ? "opacity-100 translate-x-0": "opacity-0 translate-x-100"
           )}>
             <h3 className="text-2xl font-semibold">
               Passionate Mobile Developer

@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+
 interface Experience {
   company: string;
   roles: Roles[];
@@ -45,13 +48,17 @@ const experiences: Experience[] = [
 ];
 
 export const ExperienceSection = () => {
+  const [ref, inView, entry] = useInView({
+    threshold: 0.4,
+  });
+
   return (
-    <section id="experience" className="py-24 px-4 relative bg-secondary/30">
+    <section ref={ref} id="experience" className="py-24 px-4 relative bg-secondary/30">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
           Work <span className="text-primary">Experience</span>
         </h2>
-        <div className="flex bg-card p-6">
+        <div className="flex bg-card p-6 rounded-lg">
           <ParentStepper />
         </div>
       </div>
@@ -66,7 +73,7 @@ const ParentStepper: React.FC = () => {
         return (
           <div key={index} className="relative ">
             <div key={index} className="flex flex-row  gap-2">
-              <div className=" hidden md:block absolute mx-3.5 my-2 h-full w-1 bg-gray-400"></div>
+              <div className="hidden md:block absolute mx-3.5 my-2 h-full w-1 bg-gray-400"></div>
               <div className="hidden md:block z-10">
                 <div className=" mx-2 md:m-2 rounded-full bg-white  w-4 h-4 ring-3 ring-blue-400" />
               </div>

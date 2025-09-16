@@ -1,4 +1,4 @@
-import { Mail, Phone } from "lucide-react";
+import { LocateIcon, Mail, Phone } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInstagram,
@@ -6,6 +6,7 @@ import {
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import TrackedLink from "./TrackedLinkComponent";
+import { faLocation } from "@fortawesome/free-solid-svg-icons";
 
 export const ContactSection = () => {
   return (
@@ -18,10 +19,10 @@ export const ContactSection = () => {
           Have a project in mind or want to collaborate? Feel free to reach out.
           I'm always open to discussing new opportunities
         </p>
-        <div className=" space-y-8 mx-auto">
+        <div className="space-y-8 mx-auto">
           <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
           <div className="flex flex-col md:flex-row  justify-center gap-4">
-            <div className=" bg-card p-4 rounded-lg flex items-start space-x-4 card-hover">
+            <div className=" md:bg-card p-4 rounded-lg flex items-start card-hover gap-4">
               <div className="p-3 rounded-full bg-primary/10">
                 <Mail className="h-6 w-6 text-primary" />
               </div>
@@ -30,13 +31,13 @@ export const ContactSection = () => {
                 <TrackedLink
                   to="mailto:aravindhan2612@gmail.com"
                   eventName="contact_email_clicked"
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-sm md:text-base text-muted-foreground hover:text-primary transition-colors"
                 >
                   aravindhan2612@gmail.com
                 </TrackedLink>
               </div>
             </div>
-            <div className=" bg-card p-4 rounded-lg flex items-start space-x-4 card-hover">
+            <div className=" md:bg-card p-4 rounded-lg flex items-start card-hover gap-2">
               <div className="p-3 rounded-full bg-primary/10">
                 <Phone className="h-6 w-6 text-primary" />
               </div>
@@ -45,7 +46,7 @@ export const ContactSection = () => {
                 <TrackedLink
                   to="tel:+919551387971"
                   eventName="contact_phone_clicked"
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-sm md:text-base text-muted-foreground hover:text-primary transition-colors"
                 >
                   +91 9551387971
                 </TrackedLink>
@@ -53,11 +54,11 @@ export const ContactSection = () => {
             </div>
             <div className="bg-card  rounded-lg p-4 flex items-start space-x-4 card-hover">
               <div className="p-3 rounded-full bg-primary/10">
-                <Mail className="h-6 w-6 text-primary" />
+                <FontAwesomeIcon className="text-primary" size="xl"  icon={faLocation}/>
               </div>
               <div className="flex-grow">
                 <h4 className="font-bold">Location</h4>
-                <a className="text-muted-foreground hover:text-primary transition-colors">
+                <a className="ext-sm md:text-base text-muted-foreground hover:text-primary transition-colors">
                   Chennai, Tamil Nadu, India
                 </a>
               </div>

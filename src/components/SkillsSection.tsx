@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "../lib/utils";
 import { useInView } from "react-intersection-observer";
 
 const skills = [
-  // Frontend
-
   {
     name: "Android",
     level: 80,
@@ -118,10 +116,13 @@ const categories = ["all", "mobile", "web", "backend", "tools"];
 
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-
-  const [ref, inView] = useInView({
+  const [ref, inView, entry] = useInView({
     threshold: 0.4,
   });
+
+  useEffect(() =>{
+    console.log("in view-project", inView, entry)
+  }, [inView, entry])
 
   const filteredSkills = skills.filter(
     (skill) => activeCategory === "all" || skill.category === activeCategory
@@ -148,12 +149,14 @@ export const SkillsSection = () => {
             </button>
           ))}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {filteredSkills.map((skill, key) => (
             <div
               key={key}
               className="bg-card p-4 rounded-lg shadow-xs card-hover flex items-center gap-2"
             >
+              <div>
               {skill.imgPath !== "" && (
                 <img
                   src={skill.imgPath}
@@ -161,14 +164,15 @@ export const SkillsSection = () => {
                   className="w-10 h-10"
                 />
               )}
+              </div>
               <div className="flex-grow">
                 <div className="text-left mb-4">
                   <h3 className="font-semibold text-lg">{skill.name}</h3>
                 </div>
-                <div className="w-full bg-secondary/50 h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-secondary/50 h-2 rounded-full">
                   <div
                     className={cn(
-                      "bg-primary h-2 rounded-full origin-left transition-all duration-1000 ease-out ",
+                      "bg-primary h-2 rounded-full origin-left transition-all duration-1000 ease-out",
                     )}
                     style={{
                       width: inView ? `${skill.level}%` : `0%`
@@ -183,6 +187,7 @@ export const SkillsSection = () => {
               </div>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>
