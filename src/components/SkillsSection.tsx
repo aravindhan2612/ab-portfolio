@@ -116,13 +116,9 @@ const categories = ["all", "mobile", "web", "backend", "tools"];
 
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [ref, inView, entry] = useInView({
+  const [ref, inView] = useInView({
     threshold: 0.4,
   });
-
-  useEffect(() =>{
-    console.log("in view-project", inView, entry)
-  }, [inView, entry])
 
   const filteredSkills = skills.filter(
     (skill) => activeCategory === "all" || skill.category === activeCategory
