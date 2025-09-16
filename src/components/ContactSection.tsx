@@ -1,4 +1,4 @@
-import { LocateIcon, Mail, Phone } from "lucide-react";
+import {  Mail, Phone } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInstagram,

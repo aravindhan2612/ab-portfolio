@@ -3,8 +3,6 @@ import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ArrowRight } from "lucide-react";
 import TrackedLink from "./TrackedLinkComponent";
-import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
 
 export interface Project {
   id: number;

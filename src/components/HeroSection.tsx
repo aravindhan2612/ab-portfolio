@@ -1,4 +1,4 @@
-import { ArrowDown, Code } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import TextType from "./TextType";
 import TrackedLink from "./TrackedLinkComponent";
 import { useInView } from "react-intersection-observer";
