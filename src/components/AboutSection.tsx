@@ -27,7 +27,7 @@ export const AboutSection = () => {
             inView ? "opacity-100 translate-x-0 ": "opacity-0 -translate-x-100 scale-150"
           )}>
             <img
-              src={"/ab-portfolio/projects/dp.jpg"}
+              src={"/ab-portfolio/projects/dp.png"}
               className="rounded-full w-60 h-60 md:w-80 md:h-80 object-cover "
             />
           </div>
