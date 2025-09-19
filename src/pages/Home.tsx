@@ -6,6 +6,8 @@ import { NavBar } from "../components/NavBar";
 import { ProjectSection } from "../components/ProjectSection";
 import { SkillsSection } from "../components/SkillsSection";
 import { StarBackground } from "../components/StarBackground";
+import { Button, ConfigProvider, FloatButton } from "antd";
+import { ArrowUpOutlined } from "@ant-design/icons";
 
 export const Home = () => {
   return (
@@ -20,6 +22,22 @@ export const Home = () => {
         <ProjectSection />
         <ContactSection />
       </main>
+      <ConfigProvider
+        theme={{
+          components: {
+            FloatButton: {
+              colorPrimary: "#80c774",
+              colorPrimaryHover: "#80c774",
+            },
+          },
+        }}
+      >
+        <FloatButton.BackTop
+          type="primary"
+          className="hover:scale-120"
+          icon={<ArrowUpOutlined />}
+        />
+      </ConfigProvider>
     </div>
   );
 };
