@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { cn } from "../lib/utils";
+import { useInView } from "react-intersection-observer";
 
 const skills = [
   {
@@ -114,18 +115,27 @@ const skills = [
 const categories = ["all", "mobile", "web", "backend", "tools"];
 
 export const SkillsSection = () => {
+  const [ref, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: false,
+  });
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
   const filteredSkills = skills.filter(
     (skill) => activeCategory === "all" || skill.category === activeCategory
   );
   return (
-    <section  id="skills" className="py-24 px-4 relative bg-secondary/30">
-      <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+    <section ref={ref} id="skills" className="py-24 px-4 relative">
+      <div
+        className={cn(
+          "container mx-auto max-w-5xl transition-all duration-700 ease-out transform",
+          inView ? "animate-fade-in opacity-100" : "opacity-0"
+        )}
+      >
+        <h2 className={cn("text-3xl md:text-4xl font-bold mb-12 text-center")}>
           My <span className="text-primary">Skills</span>
         </h2>
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className={cn("flex flex-wrap justify-center gap-4 mb-12")}>
           {categories.map((category, key) => (
             <button
               key={key}
@@ -141,45 +151,45 @@ export const SkillsSection = () => {
             </button>
           ))}
         </div>
-        <div className="">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {filteredSkills.map((skill, key) => (
-            <div
-              key={key}
-              className="bg-card p-4 rounded-lg shadow-xs card-hover flex items-center gap-2"
-            >
-              <div>
-              {skill.imgPath !== "" && (
-                <img
-                  src={skill.imgPath}
-                  alt={skill.name}
-                  className="w-10 h-10"
-                />
-              )}
+        <div className={cn("")}>
+          <div className={"grid grid-cols-1 md:grid-cols-3 gap-6"}>
+            {filteredSkills.map((skill, key) => (
+              <div
+                key={key}
+                className="bg-card p-4 rounded-lg shadow-xs card-hover flex items-center gap-2"
+              >
+                <div>
+                  {skill.imgPath !== "" && (
+                    <img
+                      src={skill.imgPath}
+                      alt={skill.name}
+                      className="w-10 h-10"
+                    />
+                  )}
+                </div>
+                <div className="flex-grow">
+                  <div className="text-left mb-4">
+                    <h3 className="font-semibold text-lg">{skill.name}</h3>
+                  </div>
+                  <div className="w-full bg-secondary/50 h-2 rounded-full">
+                    <div
+                      className={cn(
+                        "bg-primary h-2 rounded-full origin-left transition-all duration-1000 ease-out"
+                      )}
+                      style={{
+                        width: inView ? `${skill.level}%` : "0%",
+                      }}
+                    />
+                  </div>
+                  <div className="text-right mt-1">
+                    <span className="text-sm text-muted-foreground">
+                      {skill.level}%
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div className="flex-grow">
-                <div className="text-left mb-4">
-                  <h3 className="font-semibold text-lg">{skill.name}</h3>
-                </div>
-                <div className="w-full bg-secondary/50 h-2 rounded-full">
-                  <div
-                    className={cn(
-                      "bg-primary h-2 rounded-full origin-left transition-all duration-1000 ease-out",
-                    )}
-                    style={{
-                      width:`${skill.level}%`
-                    }}
-                  />
-                </div>
-                <div className="text-right mt-1">
-                  <span className="text-sm text-muted-foreground">
-                    {skill.level}%
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

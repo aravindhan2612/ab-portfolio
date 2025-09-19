@@ -4,7 +4,7 @@ import React, { type AnchorHTMLAttributes } from "react";
 import { analytics } from "../FirebaseConfig";
 
 interface TrackedLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  to: string;
+  to?: string;
   eventName: string;
   eventParams?: { [key: string]: any };
 }

@@ -1,3 +1,5 @@
+import { useInView } from "react-intersection-observer";
+import { cn } from "../lib/utils";
 
 interface Experience {
   company: string;
@@ -46,10 +48,22 @@ const experiences: Experience[] = [
 ];
 
 export const ExperienceSection = () => {
-
+  const [ref, inView] = useInView({
+    threshold: 0.3,
+    triggerOnce: false,
+  });
   return (
-    <section id="experience" className="py-24 px-4 relative bg-secondary/30">
-      <div className="container mx-auto max-w-5xl">
+    <section
+      ref={ref}
+      id="experience"
+      className="py-24 px-4 relative bg-secondary/30"
+    >
+      <div
+        className={cn(
+          "container mx-auto max-w-5xl transition-all duration-1000 ease-out transform",
+          inView ? "opacity-100 animate-fade-in" : "opacity-0"
+        )}
+      >
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
           Work <span className="text-primary">Experience</span>
         </h2>

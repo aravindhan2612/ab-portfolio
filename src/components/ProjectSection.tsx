@@ -113,15 +113,14 @@ const creativeProjects: Project[] = [
   },
 ];
 export const ProjectSection = () => {
-
   return (
     <section id="projects" className="px-4 relative">
-      <div className="container mx-auto max-w-5xl py-10">
+      <div className="container mx-auto max-w-5xl py-24">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
           Featured <span className="text-primary"> Projects</span>
         </h2>
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          A showcase of real-world projects I contributed to while working with
+          To showcase of real-world projects I contributed to while working with
           clients or companies. These projects demonstrate practical solutions,
           collaboration with teams, and experience delivering results in a
           professional environment
@@ -179,7 +178,7 @@ export const ProjectSection = () => {
       </div>
 
       {/* creative samples */}
-      <div className="container mx-auto max-w-5xl py-10">
+      <div className="container mx-auto max-w-5xl py-24">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
           Creative <span className="text-primary"> Samples</span>
         </h2>

@@ -6,7 +6,7 @@ import { NavBar } from "../components/NavBar";
 import { ProjectSection } from "../components/ProjectSection";
 import { SkillsSection } from "../components/SkillsSection";
 import { StarBackground } from "../components/StarBackground";
-import { Button, ConfigProvider, FloatButton } from "antd";
+import { ConfigProvider, FloatButton } from "antd";
 import { ArrowUpOutlined } from "@ant-design/icons";
 
 export const Home = () => {
