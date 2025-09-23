@@ -1,10 +1,11 @@
 import { faGithub, faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import TrackedLink from "./TrackedLinkComponent";
 import { useInView } from "react-intersection-observer";
 import { cn } from "../lib/utils";
 import type { Project } from "./ProjectSection";
+import { useRef } from "react";
 
 const creativeProjects: Project[] = [
   {
@@ -39,11 +40,21 @@ const creativeProjects: Project[] = [
     githubUrl: "https://github.com/aravindhan2612/YoDoApp-Android-native",
   },
 ];
+type Direction = "left" | "right";
 export const CreativeSamplesSection = () => {
    const [sampleRef, inSampleView] = useInView({
     threshold: 0.2,
     triggerOnce: true,
   });
+   const scrollRef = useRef<HTMLDivElement>(null);
+    const scroll = (direction: Direction) => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollBy({
+          left: direction === "left" ? -300 : 300,
+          behavior: "smooth",
+        });
+      }
+    };
   return (
     <section ref={sampleRef} id="projects" className="px-4 relative">
 
@@ -62,11 +73,12 @@ export const CreativeSamplesSection = () => {
           creativity, and ability to prototype concepts. These are personal
           explorations that reflect my interests and technical experiments
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div ref={scrollRef}
+          className="flex overflow-x-auto no-scrollbar scroll-smooth gap-4 ">
           {creativeProjects.map((project, key) => (
             <div
               key={key}
-              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
+              className="min-w-[270px] bg-card rounded-lg overflow-hidden shadow-xs card-hover"
             >
               <div className="h-48 overflow-hidden">
                 <img
@@ -108,6 +120,20 @@ export const CreativeSamplesSection = () => {
               </div>
             </div>
           ))}
+        </div>
+         <div className="flex py-10 gap-3 justify-center">
+          <button
+            onClick={() => scroll("left")}
+            className=" -translate-y-1/2 bg-primary p-2 rounded-full shadow z-10"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="-translate-y-1/2 bg-primary p-2 rounded-full shadow z-10"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
         </div>
         <div className="text-center mt-12">
           <TrackedLink

@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TrackedLink from "./TrackedLinkComponent";
 import { useInView } from "react-intersection-observer";
 import { cn } from "../lib/utils";
+import { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface Project {
   id: number;
@@ -79,17 +81,28 @@ const workProjects: Project[] = [
   },
 ];
 
+type Direction = "left" | "right";
+
 export const ProjectSection = () => {
   const [workRef, inWorkView] = useInView({
     threshold: 0.1,
     triggerOnce: true,
   });
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scroll = (direction: Direction) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -300 : 300,
+        behavior: "smooth",
+      });
+    }
+  };
   return (
     <section ref={workRef} id="featured_projects" className="px-4 relative">
       <div
         ref={workRef}
         className={cn(
-          "container mx-auto max-w-5xl py-24 transition-all duration-1000 ease-out transform",
+          "container mx-auto max-w-5xl py-14 transition-all duration-1000 ease-out transform",
           inWorkView
             ? "opacity-100 translate-x-0"
             : "opacity-0 -translate-x-100"
@@ -104,11 +117,15 @@ export const ProjectSection = () => {
           collaboration with teams, and experience delivering results in a
           professional environment
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-auto space-x-4 no-scrollbar scroll-smooth gap-4"
+        >
           {workProjects.map((project, key) => (
             <div
               key={key}
-              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
+              className="min-w-[270px] bg-card rounded-lg overflow-hidden shadow-xs card-hover"
             >
               <div className="h-48 overflow-hidden">
                 <img
@@ -153,6 +170,20 @@ export const ProjectSection = () => {
               </div>
             </div>
           ))}
+        </div>
+        <div className=" flex py-10 gap-3 justify-center">
+          <button
+            onClick={() => scroll("left")}
+            className=" -translate-y-1/2 bg-primary p-2 rounded-full shadow z-10"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="-translate-y-1/2 bg-primary p-2 rounded-full shadow z-10"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
         </div>
       </div>
     </section>
