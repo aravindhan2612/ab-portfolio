@@ -16,11 +16,11 @@ export const HeroSection = () => {
 
   const [ref, inView] = useInView({
     threshold: 0.4,
-    triggerOnce: true
+    triggerOnce: true,
   });
 
   const resumeUrl =
-    "https://github.com/aravindhan2612/aravindhan-b-resume/releases/download/v1.0/Aravindhan_resume.pdf";
+    "https://github.com/aravindhan2612/ab-portfolio/releases/download/v1.0/Aravindhan_resume.pdf";
 
   return (
     <section
@@ -61,7 +61,7 @@ export const HeroSection = () => {
               showCursor={true}
               deletingSpeed={100}
               cursorCharacter="|"
-              textColors={[ theme == 'dark'? "#09db68" : "#b96fff"]}
+              textColors={[theme == "dark" ? "#09db68" : "#b96fff"]}
             />
 
             <div className="flex flex-col  md:flex-row justify-center gap-4 opacity-0 animate-fade-in-delay-4 mt-6">
