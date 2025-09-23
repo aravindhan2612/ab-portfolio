@@ -8,7 +8,7 @@ import { cn } from "../lib/utils";
 export const AboutSection = () => {
   const [ref, inView] = useInView({
     threshold: 0.3,
-    triggerOnce: false,
+    triggerOnce: true,
   });
   return (
     <section ref={ref} id="about" className={cn("py-24 px-4 relative")}>

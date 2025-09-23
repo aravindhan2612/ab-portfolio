@@ -8,16 +8,19 @@ import { faBriefcase, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useRef } from "react";
 import MobileDevelopement from "../../public/projects/mobile_application_development.json";
 import Lottie from "lottie-react";
+import { useTheme } from "../ThemeContext";
 
 export const HeroSection = () => {
   const container = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
 
   const [ref, inView] = useInView({
     threshold: 0.4,
+    triggerOnce: true
   });
 
   const resumeUrl =
-    "https://github.com/aravindhan2612/aravindhan-b-resume/releases/download/v1.0/Aravindhan_7.pdf";
+    "https://github.com/aravindhan2612/aravindhan-b-resume/releases/download/v1.0/Aravindhan_resume.pdf";
 
   return (
     <section
@@ -58,7 +61,7 @@ export const HeroSection = () => {
               showCursor={true}
               deletingSpeed={100}
               cursorCharacter="|"
-              textColors={["#7c1ab0"]}
+              textColors={[ theme == 'dark'? "#09db68" : "#b96fff"]}
             />
 
             <div className="flex flex-col  md:flex-row justify-center gap-4 opacity-0 animate-fade-in-delay-4 mt-6">

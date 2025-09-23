@@ -50,7 +50,7 @@ const experiences: Experience[] = [
 export const ExperienceSection = () => {
   const [ref, inView] = useInView({
     threshold: 0.3,
-    triggerOnce: false,
+    triggerOnce: true,
   });
   return (
     <section
@@ -60,8 +60,8 @@ export const ExperienceSection = () => {
     >
       <div
         className={cn(
-          "container mx-auto max-w-5xl transition-all duration-1000 ease-out transform",
-          inView ? "opacity-100 animate-fade-in" : "opacity-0"
+          "container mx-auto max-w-5xl transition-all duration-1000 ease-out",
+          inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-100" 
         )}
       >
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">

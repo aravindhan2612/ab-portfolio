@@ -116,8 +116,8 @@ const categories = ["all", "mobile", "web", "backend", "tools"];
 
 export const SkillsSection = () => {
   const [ref, inView] = useInView({
-    threshold: 0.2,
-    triggerOnce: false,
+    threshold: 0.1,
+    triggerOnce: true,
   });
   const [activeCategory, setActiveCategory] = useState<string>("all");
 

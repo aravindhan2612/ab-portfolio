@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Jersey+10&display=swap");
-@layer theme, base,antd, components, utilities;
 @import "tailwindcss";
 
 @theme {
@@ -7,7 +6,8 @@
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
 
-  --color-primary: hsl(var(--primary));
+  --color-primary: var(--primary);
+  --color-primary-invert: var(--primary-invert);
   --color-primary-foreground: hsl(var(--primary-foreground));
 
   --color-card: hsl(var(--card));
@@ -72,7 +72,8 @@
 
     --card: 0 0% 100%;
 
-    --primary: 120 47% 60%;
+    --primary: var(--color-green-400);
+    --primary-invert: var(--color-purple-400);
     --primary-foreground: 210 40% 98%;
 
     --border: 214 32% 91%;
@@ -84,7 +85,8 @@
 
     --card: 222 47% 8%;
 
-    --primary: 120 47% 60%;
+    --primary:  var(--color-purple-400);
+    --primary-invert: var(--color-green-400);
     --primary-foreground: 213 31% 91%;
 
     --border: 217 33% 20%;
@@ -148,12 +150,12 @@
 }
 
 @utility star {
-  @apply absolute rounded-full bg-purple-400;
+  @apply absolute rounded-full bg-primary-invert;
   box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
 }
 
 @utility meteor {
-  @apply absolute bg-linear-to-r from-purple-400 via-purple-400 to-transparent rounded-full;
+  @apply absolute bg-linear-to-r from-primary-invert via-primary-invert to-transparent rounded-full;
   box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
 }
 

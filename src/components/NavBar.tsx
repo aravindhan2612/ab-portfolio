@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { cn } from "../lib/utils";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import TrackedLink from "./TrackedLinkComponent";
+import { useTheme } from "../ThemeContext";
 
 const navItems = [
   { name: "Home", href: "#hero" },
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#projects" },
+  { name: "FeaturedProjects", href: "#featured_projects" },
+    { name: "CreativeSamples", href: "#projects" },
   { name: "Contact", href: "#contact" },
   { name: "Theme", href: "" },
 ];
@@ -16,18 +18,9 @@ const navItems = [
 export const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme == "dark") {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setIsDarkMode(false);
-    }
     const handleScroll = () => {
       setIsScrolled(window.screenY > 10);
     };
@@ -35,18 +28,6 @@ export const NavBar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const toggleTheme = () => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setIsDarkMode(false);
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setIsDarkMode(true);
-    }
-  };
 
   return (
     <nav
@@ -75,7 +56,7 @@ export const NavBar = () => {
                   onClick={toggleTheme}
                   className={cn("rounded-full transition-colors duration-300")}
                 >
-                  {isDarkMode ? (
+                  {theme == "dark" ? (
                     <Sun className="h-6 w-6 text-yellow-300" />
                   ) : (
                     <Moon className="h-6 w-6 text-blue-900" />
@@ -128,7 +109,7 @@ export const NavBar = () => {
                       "flex rounded-full transition-colors duration-300 justify-center"
                     )}
                   >
-                    {isDarkMode ? (
+                    {theme == "dark" ? (
                       <Sun className="h-6 w-6 text-yellow-300" />
                     ) : (
                       <Moon className="h-6 w-6 text-blue-900" />
