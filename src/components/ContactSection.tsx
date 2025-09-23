@@ -10,15 +10,22 @@ import { useInView } from "react-intersection-observer";
 import { cn } from "../lib/utils";
 
 export const ContactSection = () => {
-   const [ref, inView] = useInView({
+  const [ref, inView] = useInView({
     threshold: 0.2,
     triggerOnce: true,
   });
   return (
-    <section ref={ref} id="contact" className="py-24 px-4 relative bg-secondary/30">
-      <div className={cn("container mx-auto max-w-5xl transition-all duration-1000 ease-out", 
-       inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-100" 
-      )}>
+    <section
+      ref={ref}
+      id="contact"
+      className="py-24 px-4 relative bg-secondary/30"
+    >
+      <div
+        className={cn(
+          "container mx-auto max-w-5xl transition-all duration-1000 ease-out",
+          inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-100"
+        )}
+      >
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
           Get In <span className="text-primary"> Touch</span>
         </h2>
@@ -87,7 +94,7 @@ export const ContactSection = () => {
                 <FontAwesomeIcon size="2xl" icon={faSquareLinkedin} />
               </TrackedLink>
               <TrackedLink
-                to="https://www.instagram.com/i_am_ns_boy"
+                to="https://www.instagram.com/aravindhan_baskaran_26"
                 target="_blank"
                 eventName="contact_instagram_clicked"
               >
