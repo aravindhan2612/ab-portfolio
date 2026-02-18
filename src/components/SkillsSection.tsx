@@ -7,13 +7,12 @@ const skills = [
     name: "Android",
     level: 80,
     category: "mobile",
-    icon: undefined,
     imgPath: "/ab-portfolio/projects/android.png",
   },
   {
     name: "Kotlin",
     level: 80,
-    category: "mobile",
+    category: "languages",
     imgPath: "/ab-portfolio/projects/kotlin.png",
   },
   {
@@ -22,11 +21,23 @@ const skills = [
     category: "mobile",
     imgPath: "/ab-portfolio/projects/jetpack-compose.svg",
   },
+   {
+    name: "XML",
+    level: 80,
+    category: "mobile",
+    imgPath: "/ab-portfolio/projects/xml.png",
+  },
   {
     name: "Java",
     level: 70,
-    category: "mobile",
+    category: "languages",
     imgPath: "/ab-portfolio/projects/java.png",
+  },
+   {
+    name: "Gradle",
+    level: 80,
+    category: "mobile",
+    imgPath: "/ab-portfolio/projects/gradle.png",
   },
   {
     name: "React-native",
@@ -37,14 +48,14 @@ const skills = [
 
   {
     name: "HTML/CSS",
-    level: 75,
-    category: "web",
+    level: 40,
+    category: "languages",
     imgPath: "/ab-portfolio/projects/html.png",
   },
   {
     name: "JavaScript",
     level: 75,
-    category: "web",
+    category: "languages",
     imgPath: "/ab-portfolio/projects/javascript.png",
   },
   {
@@ -56,7 +67,7 @@ const skills = [
   {
     name: "TypeScript",
     level: 75,
-    category: "web",
+    category: "languages",
     imgPath: "/ab-portfolio/projects/typescript.png",
   },
   {
@@ -67,21 +78,27 @@ const skills = [
   },
 
   // Backend
+   {
+    name: "Spring Boot",
+    level: 60,
+    category: "backend",
+    imgPath: "/ab-portfolio/projects/spring-boot.png",
+  },
   {
     name: "Node.js",
-    level: 60,
+    level: 40,
     category: "backend",
     imgPath: "/ab-portfolio/projects/nodejs.png",
   },
   {
     name: "Express",
-    level: 60,
+    level: 40,
     category: "backend",
     imgPath: "/ab-portfolio/projects/expressjs.png",
   },
   {
     name: "MongoDB",
-    level: 60,
+    level: 40,
     category: "backend",
     imgPath: "/ab-portfolio/projects/mongo.png",
   },
@@ -92,12 +109,6 @@ const skills = [
     level: 90,
     category: "tools",
     imgPath: "/ab-portfolio/projects/android-studio.png",
-  },
-  {
-    name: "Gradle",
-    level: 80,
-    category: "tools",
-    imgPath: "/ab-portfolio/projects/gradle.png",
   },
   {
     name: "GitHub",
@@ -112,7 +123,7 @@ const skills = [
     imgPath: "/ab-portfolio/projects/vscode.png",
   },
 ];
-const categories = ["all", "mobile", "web", "backend", "tools"];
+const categories = ["all", "languages", "mobile", "web", "backend", "tools"];
 
 export const SkillsSection = () => {
   const [ref, inView] = useInView({
@@ -133,7 +144,7 @@ export const SkillsSection = () => {
         )}
       >
         <h2 className={cn("text-3xl md:text-4xl font-bold mb-12 text-center")}>
-          My <span className="text-primary">Skills</span>
+          Technical <span className="text-primary">Skills</span>
         </h2>
         <div className={cn("flex flex-wrap justify-center gap-4 mb-12")}>
           {categories.map((category, key) => (
@@ -159,7 +170,7 @@ export const SkillsSection = () => {
                 className="bg-card p-4 rounded-lg shadow-xs card-hover flex items-center gap-2"
               >
                 <div>
-                  {skill.imgPath !== "" && (
+                  {skill.imgPath !== undefined &&  (
                     <img
                       src={skill.imgPath}
                       alt={skill.name}

@@ -53,7 +53,7 @@ export const HeroSection = () => {
               className="font-jersey  text-2xl md:text-4xl mt-4"
               text={[
                 "Android Developer",
-                "Kotlin Developer",
+                "KMP Developer",
                 "React Developer",
               ]}
               typingSpeed={100}

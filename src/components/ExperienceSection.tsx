@@ -14,16 +14,28 @@ export interface Roles {
 
 const experiences: Experience[] = [
   {
+    company: "Synechron",
+    roles: [
+      {
+        name: "Senior Associate - Technology",
+        tenure: "December 2025 - Present",
+      },
+    ],
+    description:
+      "At Synechron, Joined as a Senior Android Developer to support upcoming Android projects.Participated in internal knowledge transfer sessions, Android architecture reviews, and project readiness activities.Worked on improving technical expertise in Kotlin, Jetpack components, and modern Android development practices.",
+    icon: "/ab-portfolio/projects/synechron1.png",
+  },
+  {
     company: "Infosys",
     roles: [
       {
         name: "Lead Technical Developer",
-        tenure: "December 2024 - Present",
+        tenure: "December 2024 - November 2025",
       },
     ],
     description:
       "At Infosys, developed and maintained the reusable UI components using jetpack compose for the client T-Mobile. Also contributed and supported to migrating the old UI design system to new UI design system. Actively contributed to code reviews, agile sprint planning and mentored Junior developers.",
-    icon: "/ab-portfolio/projects/infosys.png", // Replace with your own icons
+    icon: "/ab-portfolio/projects/infosys.png"
   },
   {
     company: "EMIS Health",

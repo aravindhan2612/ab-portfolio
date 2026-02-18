@@ -42,7 +42,7 @@ export const AboutSection = () => {
             )}
           >
             <h3 className="text-2xl font-semibold">
-              Passionate Mobile Developer
+              Passionate Software Developer
             </h3>
             <p className="text-muted-foreground">
               As an experienced Android developer with over 6+ years of
