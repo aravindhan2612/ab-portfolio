@@ -23,31 +23,20 @@ const workProjects: Project[] = [
     description:
       "T-Life is now the go-to app for T-Mobile. Get the latest exclusive deals from T-Mobile Tuesdays, and take advantage of all your Magenta Status benefits. You can manage your account, configure your T-Mobile Home Internet gateway, access T-Mobile Money, and more.",
     image: "/ab-portfolio/projects/t-life.png",
-    tags: ["Mobile", "Android", "Kotlin", "MVI", "Jetpack compose", "Retrofit"],
-    demoUrl:
-      "https://play.google.com/store/apps/details?id=com.tmobile.tuesdays&hl=en",
+    tags: ["Mobile", "Android", "Kotlin", "MVI", "Jetpack Compose", "Retrofit"],
+    demoUrl: "https://play.google.com/store/apps/details?id=com.tmobile.tuesdays&hl=en",
     githubUrl: "",
   },
   {
     id: 2,
     title: "EMIS-X Mobile",
     description:
-      "Experience seamless access to real-time patient data, securely at the point of care with EMIS-X Mobile. Our app empowers clinicians to efficiently manage their day, providing quick synchronisation for remote work, whether online or offline, for more flexibility. With EMIS-X Mobile, you can effortlessly view, book, and manage appointments, while also editing, updating, and sharing crucial information - all designed to optimise care delivery, bringing it closer to home.",
+      "Experience seamless access to real-time patient data, securely at the point of care with EMIS-X Mobile. Our app empowers clinicians to efficiently manage their day, providing quick synchronisation for remote work, whether online or offline.",
     image: "/ab-portfolio/projects/emis-x.png",
-    tags: [
-      "React-native",
-      "Android",
-      "iOS",
-      "Typescript",
-      "Kotlin",
-      "Swift",
-      "Redux",
-    ],
-    demoUrl:
-      "https://play.google.com/store/apps/details?id=com.emisx.mobile&hl=en_IN",
+    tags: ["React Native", "Android", "iOS", "TypeScript", "Kotlin", "Swift", "Redux"],
+    demoUrl: "https://play.google.com/store/apps/details?id=com.emisx.mobile&hl=en_IN",
     githubUrl: "",
   },
-
   {
     id: 3,
     title: "Patient Access",
@@ -55,28 +44,17 @@ const workProjects: Project[] = [
       "Patient Access connects you to healthcare services when you need them most. Book GP appointments, order repeat prescriptions and explore your local pharmacy services.",
     image: "/ab-portfolio/projects/pa.png",
     tags: ["Mobile", "Android", "Java", "Kotlin", "SSO", "RxJava", "MVP"],
-    demoUrl:
-      "https://play.google.com/store/apps/details?id=uk.co.patient.patientaccess&hl=en_GB",
+    demoUrl: "https://play.google.com/store/apps/details?id=uk.co.patient.patientaccess&hl=en_GB",
     githubUrl: "",
   },
   {
     id: 1,
     title: "EMIS Mobile",
     description:
-      "EMIS Mobile allows clinicians to access the information they need at the point-of-care securely. Whether online or offline, clinicians can use the app to view and book appointments and up-to-date medical records, making it easier to deliver care closer to home",
+      "EMIS Mobile allows clinicians to access the information they need at the point-of-care securely. Whether online or offline, clinicians can view and book appointments and up-to-date medical records.",
     image: "/ab-portfolio/projects/emis-mobile.png",
-    tags: [
-      "Mobile",
-      "Android",
-      "Kotlin",
-      "Java",
-      "Firebase",
-      "Sqlite",
-      "MVVM",
-      "Room",
-    ],
-    demoUrl:
-      "https://play.google.com/store/apps/details?id=com.emishealth.emismobile.emismobileapp&hl=en_IN",
+    tags: ["Mobile", "Android", "Kotlin", "Java", "Firebase", "SQLite", "MVVM", "Room"],
+    demoUrl: "https://play.google.com/store/apps/details?id=com.emishealth.emismobile.emismobileapp&hl=en_IN",
     githubUrl: "",
   },
 ];
@@ -84,105 +62,128 @@ const workProjects: Project[] = [
 type Direction = "left" | "right";
 
 export const ProjectSection = () => {
-  const [workRef, inWorkView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
+  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
   const scrollRef = useRef<HTMLDivElement>(null);
+
   const scroll = (direction: Direction) => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: direction === "left" ? -300 : 300,
-        behavior: "smooth",
-      });
+      scrollRef.current.scrollBy({ left: direction === "left" ? -300 : 300, behavior: "smooth" });
     }
   };
-  return (
-    <section ref={workRef} id="featured_projects" className="px-4 relative">
-      <div
-        ref={workRef}
-        className={cn(
-          "container mx-auto max-w-5xl py-14 transition-all duration-1000 ease-out transform",
-          inWorkView
-            ? "opacity-100 translate-x-0"
-            : "opacity-0 -translate-x-100"
-        )}
-      >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Featured <span className="text-primary"> Projects</span>
-        </h2>
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          To showcase of real-world projects I contributed to while working with
-          clients or companies. These projects demonstrate practical solutions,
-          collaboration with teams, and experience delivering results in a
-          professional environment
-        </p>
 
+  return (
+    <section ref={ref} id="featured_projects" className="px-4 py-24 relative">
+      <div className="container mx-auto max-w-5xl">
         <div
-          ref={scrollRef}
-          className="flex overflow-x-auto space-x-4 no-scrollbar scroll-smooth gap-4"
+          className={cn("reveal", inView && "reveal-visible")}
         >
-          {workProjects.map((project, key) => (
-            <div
-              key={key}
-              className="min-w-[270px] bg-card rounded-lg overflow-hidden shadow-xs card-hover"
-            >
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className="p-6">
-                <div className="flex flex-wrap overflow-x gap-2 mb-4">
-                  {project.tags.map((tag, key) => (
-                    <span
-                      key={key}
-                      className="px-2 py-1 text-xs font-medium  border rounded-full bg-primary/20 -text-secondary-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h3 className="text-xl font-semibold mb-1">{project.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                  {project.description}
-                </p>
-                <div className="flex justify-between items-center">
-                  <div className="flex space-x-3">
-                    {project.demoUrl !== "" && (
-                      <TrackedLink
-                        target="_blank"
-                        to={project.demoUrl}
-                        eventName="demo_url"
-                        eventParams={{ link: `${project.title} clicked` }}
-                        className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                      >
-                        <FontAwesomeIcon
-                          size="xl"
-                          icon={faSquareArrowUpRight}
-                        />
-                      </TrackedLink>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+          <div className="mono-label text-center mb-3">Featured Work</div>
+          <h2 className="section-heading">
+            Professional <span style={{ color: "var(--android-green)" }}>Projects</span>
+          </h2>
+          <p className="section-subheading max-w-2xl mx-auto">
+            Real-world projects I contributed to while working with clients or companies —
+            demonstrating practical solutions and professional collaboration.
+          </p>
         </div>
-        <div className=" flex py-10 gap-3 justify-center">
+
+        {/* Scrollable card carousel with flanking arrows */}
+        <div className="flex items-center gap-2">
           <button
             onClick={() => scroll("left")}
-            className=" -translate-y-1/2 bg-primary p-2 rounded-full shadow z-10"
+            className="flex-shrink-0 p-2 border rounded-full transition-all duration-200"
+            style={{ borderColor: "var(--border)", color: "var(--foreground-muted)", backgroundColor: "var(--surface)" }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.backgroundColor = "var(--surface-elevated)";
+              el.style.color = "var(--foreground)";
+              el.style.borderColor = "rgba(61,220,132,0.5)";
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.backgroundColor = "var(--surface)";
+              el.style.color = "var(--foreground-muted)";
+              el.style.borderColor = "var(--border)";
+            }}
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
+
+          <div ref={scrollRef} className="flex overflow-x-auto no-scrollbar scroll-smooth gap-3 pb-2">
+            {workProjects.map((project) => (
+              <div
+                key={project.id}
+                className="group min-w-[270px] md-card overflow-hidden flex-shrink"
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.boxShadow = "0 8px 16px rgba(0,0,0,0.3)";
+                  el.style.transform = "translateY(-4px)";
+                  el.style.borderColor = "rgba(61,220,132,0.3)";
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.boxShadow = "0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15)";
+                  el.style.transform = "translateY(0)";
+                  el.style.borderColor = "var(--border)";
+                }}
+              >
+                <div className="h-40 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-4">
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {project.tags.map(tag => (
+                      <span key={tag} className="md-chip">{tag}</span>
+                    ))}
+                  </div>
+                  <h3 className="text-base font-semibold mb-1" style={{ color: "var(--foreground)" }}>
+                    {project.title}
+                  </h3>
+                  <p className="text-xs mb-3 line-clamp-3" style={{ color: "var(--foreground-muted)" }}>
+                    {project.description}
+                  </p>
+                  {project.demoUrl && (
+                    <TrackedLink
+                      target="_blank"
+                      to={project.demoUrl}
+                      eventName="demo_url"
+                      eventParams={{ link: `${project.title} clicked` }}
+                      className="text-xs font-medium transition-colors duration-150 flex items-center gap-1"
+                      style={{ color: "var(--foreground-muted)" }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--android-green)"; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--foreground-muted)"; }}
+                    >
+                      <FontAwesomeIcon icon={faSquareArrowUpRight} /> Play Store
+                    </TrackedLink>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Right arrow */}
           <button
             onClick={() => scroll("right")}
-            className="-translate-y-1/2 bg-primary p-2 rounded-full shadow z-10"
+            className="flex-shrink-0 p-2 border rounded-full transition-all duration-200"
+            style={{ borderColor: "var(--border)", color: "var(--foreground-muted)", backgroundColor: "var(--surface)" }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.backgroundColor = "var(--surface-elevated)";
+              el.style.color = "var(--foreground)";
+              el.style.borderColor = "rgba(61,220,132,0.5)";
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.backgroundColor = "var(--surface)";
+              el.style.color = "var(--foreground-muted)";
+              el.style.borderColor = "var(--border)";
+            }}
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-5 h-5" />
           </button>
         </div>
       </div>

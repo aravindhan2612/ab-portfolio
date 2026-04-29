@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "../lib/utils";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import TrackedLink from "./TrackedLinkComponent";
@@ -10,128 +10,151 @@ const navItems = [
   { name: "Skills", href: "#skills" },
   { name: "Experience", href: "#experience" },
   { name: "Projects", href: "#featured_projects" },
-    { name: "Samples", href: "#projects" },
+  { name: "Samples", href: "#projects" },
   { name: "Contact", href: "#contact" },
   { name: "Theme", href: "" },
 ];
 
 export const NavBar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.screenY > 10);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <nav
-      className={cn(
-        "fixed w-full z-40 transition-all duration-300",
-        isScrolled ? "py-3 bg-background/80 backdrop-blur-md shadow-xs" : "py-5"
-      )}
+      className="fixed w-full z-40 h-16 border-b"
+      style={{
+        backgroundColor: "var(--surface)",
+        borderColor: "var(--border)",
+      }}
     >
-      <div className="container flex items-center justify-between">
-        <a
-          className="text-xl font-bold text-primary flex items-center"
-          href="#hero"
-        >
-          <span className="relative z-10">
-            <span className="text-glow text-foreground"> A</span>B
+      <div className="container flex items-center justify-between h-full">
+        {/* Brand */}
+        <a href="#hero" className="flex items-center gap-1 font-medium text-lg select-none">
+          <span style={{ color: "var(--foreground)" }}>AB</span>
+          <span style={{ color: "var(--android-green)" }}>.</span>
+          <span
+            className="font-mono text-xs ml-1 hidden sm:inline"
+            style={{ color: "var(--foreground-muted)" }}
+          >
+            Android Dev
           </span>
         </a>
 
-        {/* desktop nav */}
-        <div className="hidden md:flex space-x-8">
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-6">
           {navItems.map((item, key) => {
             if (item.name === "Theme") {
               return (
                 <button
                   key={key}
                   onClick={toggleTheme}
-                  className={cn("rounded-full transition-colors duration-300")}
+                  className="p-2 rounded-lg transition-colors duration-200"
+                  style={{ color: "var(--foreground-muted)" }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--surface-elevated)";
+                    (e.currentTarget as HTMLButtonElement).style.color = "var(--foreground)";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
+                    (e.currentTarget as HTMLButtonElement).style.color = "var(--foreground-muted)";
+                  }}
+                  aria-label="Toggle theme"
                 >
-                  {theme == "dark" ? (
-                    <Sun className="h-6 w-6 text-yellow-300" />
+                  {theme === "dark" ? (
+                    <Sun className="h-5 w-5" />
                   ) : (
-                    <Moon className="h-6 w-6 text-blue-900" />
+                    <Moon className="h-5 w-5" />
                   )}
                 </button>
               );
-            } else {
-              return (
-                <TrackedLink
-                  key={key}
-                  to={item.href}
-                  eventName="nav_section_desktop"
-                  eventParams={{ link: `${item.name}_clicked` }}
-                  className="text-foreground/80 hover:text-primary hover:text-glow transition-colors duration-300"
-                >
-                  {item.name}
-                </TrackedLink>
-              );
             }
+            return (
+              <TrackedLink
+                key={key}
+                to={item.href}
+                eventName="nav_section_desktop"
+                eventParams={{ link: `${item.name}_clicked` }}
+                className={cn(
+                  "relative text-sm py-1 transition-colors duration-200",
+                  "after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2",
+                  "after:h-0.5 after:w-0 after:rounded-full",
+                  "after:transition-all after:duration-300 after:ease-out",
+                  "hover:after:w-full"
+                )}
+                style={{ color: "var(--foreground-muted)" }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = "var(--foreground)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = "var(--foreground-muted)";
+                }}
+              >
+                <style>{`
+                  .nav-link-underline::after { background-color: var(--android-green); }
+                `}</style>
+                <span className="nav-link-underline">{item.name}</span>
+              </TrackedLink>
+            );
           })}
         </div>
 
-        {/* mobile nav */}
-
+        {/* Mobile hamburger */}
         <button
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="md:hidden p-2 text-foreground z-50"
+          onClick={() => setIsMenuOpen(prev => !prev)}
+          className="md:hidden p-2 z-50 transition-colors duration-200"
+          style={{ color: "var(--foreground)" }}
           aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}{" "}
+          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
+      </div>
 
-        <div
-          className={cn(
-            "fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center",
-            "transition-all duration-300 md:hidden",
-            isMenuOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
-          )}
-        >
-          <div className="flex flex-col space-y-8 text-xl">
-            {navItems.map((item, key) => {
-              if (item.name === "Theme") {
-                return (
-                  <button
-                    key={key}
-                    onClick={toggleTheme}
-                    className={cn(
-                      "flex rounded-full transition-colors duration-300 justify-center"
-                    )}
-                  >
-                    {theme == "dark" ? (
-                      <Sun className="h-6 w-6 text-yellow-300" />
-                    ) : (
-                      <Moon className="h-6 w-6 text-blue-900" />
-                    )}
-                  </button>
-                );
-              } else {
-                return (
-                  <TrackedLink
-                    key={key}
-                    to={item.href}
-                    className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                    onClick={() => setIsMenuOpen(false)}
-                    eventName="nav_section_mobile"
-                    eventParams={{ link: `${item.name}_clicked` }}
-                  >
-                    {item.name}
-                  </TrackedLink>
-                );
-              }
-            })}
-          </div>
+      {/* Mobile menu — slide down */}
+      <div
+        className={cn(
+          "md:hidden overflow-hidden transition-all duration-300 ease-in-out border-b",
+          isMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+        )}
+        style={{
+          backgroundColor: "var(--surface)",
+          borderColor: "var(--border)",
+        }}
+      >
+        <div className="container flex flex-col py-2">
+          {navItems.map((item, key) => {
+            if (item.name === "Theme") {
+              return (
+                <button
+                  key={key}
+                  onClick={toggleTheme}
+                  className="flex items-center gap-3 py-4 border-b text-sm transition-colors duration-150"
+                  style={{ borderColor: "var(--border)", color: "var(--foreground-muted)" }}
+                >
+                  {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                  {theme === "dark" ? "Light mode" : "Dark mode"}
+                </button>
+              );
+            }
+            return (
+              <TrackedLink
+                key={key}
+                to={item.href}
+                className="py-4 border-b text-sm text-left transition-colors duration-150"
+                style={{ borderColor: "var(--border)", color: "var(--foreground-muted)" }}
+                onClick={() => setIsMenuOpen(false)}
+                eventName="nav_section_mobile"
+                eventParams={{ link: `${item.name}_clicked` }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = "var(--android-green)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = "var(--foreground-muted)";
+                }}
+              >
+                {item.name}
+              </TrackedLink>
+            );
+          })}
         </div>
       </div>
     </nav>

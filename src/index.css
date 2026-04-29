@@ -1,168 +1,247 @@
-@import url("https://fonts.googleapis.com/css2?family=Jersey+10&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --color-border: hsl(var(--border));
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
+  /* Color tokens — point to CSS variables set in @layer base */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-muted-foreground: var(--foreground-muted);
+  --color-border: var(--border);
+  --color-card: var(--surface);
+  --color-android: var(--android-green);
+  --color-android-container: var(--android-container);
+  --color-primary: var(--android-green);
+  --color-secondary: var(--surface-elevated);
+  --color-primary-foreground: var(--on-android);
 
-  --color-primary: var(--primary);
-  --color-primary-invert: var(--primary-invert);
-  --color-primary-foreground: hsl(var(--primary-foreground));
+  --font-sans: "Roboto", system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, monospace;
 
-  --color-card: hsl(var(--card));
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-fade-in-delay-1: fade-in 0.5s ease-out 0.15s forwards;
+  --animate-fade-in-delay-2: fade-in 0.5s ease-out 0.3s forwards;
+  --animate-fade-in-delay-3: fade-in 0.5s ease-out 0.45s forwards;
+  --animate-fade-in-delay-4: fade-in 0.5s ease-out 0.6s forwards;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.5s ease-in-out infinite;
 
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
-  --animate-fade-in: fade-in 0.7s ease-out forwards;
-  --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;
-  --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
-  --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
-  --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
-  --animate-meteor: meteor 5s linear infinite;
-  --font-jersey: "Jersey 10", "sans-serif";
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-  @keyframes pulse-subtle {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
-  }
   @keyframes fade-in {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(16px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-  @keyframes meteor {
-    0% {
-      transform: rotate(215deg) translateX(0);
-      opacity: 1;
-    }
-    70% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(215deg) translateX(-500px);
-      opacity: 0;
-    }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-8px); }
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.6; }
+    50%       { opacity: 1; }
   }
 }
 
 @layer base {
+  /* Dark-first: :root = dark default */
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
-
-    --card: 0 0% 100%;
-
-    --primary: var(--color-green-400);
-    --primary-invert: var(--color-purple-400);
-    --primary-foreground: 210 40% 98%;
-
-    --border: 214 32% 91%;
+    --background:        #0F1513;
+    --surface:           #1A1C1E;
+    --surface-elevated:  #25282B;
+    --foreground:        #E2E3E5;
+    --foreground-muted:  #8B9096;
+    --border:            #2E3235;
+    --android-green:     #3DDC84;
+    --android-container: rgba(61, 220, 132, 0.12);
+    --on-android:        #0A1F12;
   }
 
-  .dark {
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%;
-
-    --card: 222 47% 8%;
-
-    --primary:  var(--color-purple-400);
-    --primary-invert: var(--color-green-400);
-    --primary-foreground: 213 31% 91%;
-
-    --border: 217 33% 20%;
+  /* Light mode override */
+  .light {
+    --background:        #F8FAF9;
+    --surface:           #FFFFFF;
+    --surface-elevated:  #F1F3F2;
+    --foreground:        #1A1C1E;
+    --foreground-muted:  #444748;
+    --border:            #C4C7C5;
+    --android-green:     #1B8C4E;
+    --android-container: rgba(27, 140, 78, 0.10);
+    --on-android:        #FFFFFF;
   }
 
   * {
-    @apply border-border;
+    box-sizing: border-box;
+    border-color: var(--border);
   }
 
   html {
-    @apply scroll-smooth;
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: background-color 0.2s ease, color 0.2s ease;
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Subtle dot-grid background — developer aesthetic */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 32px 32px;
+    opacity: 0.35;
+    pointer-events: none;
   }
 }
 
+/* ─── Container ──────────────────────────────── */
 @utility container {
   margin-inline: auto;
   padding-inline: 2rem;
 
-  @media (width >= 640px) {
-    max-width: 640px;
-  }
-  @media (width >= 768px) {
-    max-width: 768px;
-  }
-  @media (width >= 1024px) {
-    max-width: 1024px;
-  }
-  @media (width >= 1280px) {
-    max-width: 1280px;
-  }
-  @media (width >= 1400px) {
-    max-width: 1400px;
-  }
+  @media (width >= 640px) { max-width: 640px; }
+  @media (width >= 768px) { max-width: 768px; }
+  @media (width >= 1024px) { max-width: 1024px; }
+  @media (width >= 1280px) { max-width: 1280px; }
+  @media (width >= 1400px) { max-width: 1400px; }
 }
 
-@utility text-glow {
-  @apply relative;
-  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+/* ─── MD3 Buttons ────────────────────────────── */
+@utility md-button-filled {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  background-color: var(--android-green);
+  color: var(--on-android);
+  border-radius: 100px;
+  border: none;
+  text-decoration: none;
 }
 
-@utility card-hover {
-  @apply transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg;
+@utility md-button-outlined {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  background-color: transparent;
+  color: var(--android-green);
+  border: 1px solid var(--android-green);
+  border-radius: 100px;
+  text-decoration: none;
 }
 
-@utility gradient-border {
-  @apply relative rounded-md;
-  background: linear-gradient(to right, hsl(var(--card)), hsl(var(--card)));
-  background-clip: padding-box;
-  border: 1px solid transparent;
+/* ─── MD3 Card ───────────────────────────────── */
+@utility md-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
 }
 
-@utility cosmic-button {
-  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
-         transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
-         hover:scale-105 active:scale-95;
+/* ─── MD3 Chips ──────────────────────────────── */
+@utility md-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: var(--surface-elevated);
+  color: var(--foreground-muted);
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
 }
 
-@utility star {
-  @apply absolute rounded-full bg-primary-invert;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+@utility md-chip-active {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid var(--android-green);
+  color: var(--android-green);
+  background-color: var(--android-container);
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
 }
 
-@utility meteor {
-  @apply absolute bg-linear-to-r from-primary-invert via-primary-invert to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+/* ─── Typography utilities ───────────────────── */
+@utility mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--android-green);
 }
 
+@utility section-heading {
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+}
+
+@utility section-subheading {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--foreground-muted);
+}
+
+/* ─── Scroll-reveal ──────────────────────────── */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+@utility reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Stagger delays ─────────────────────────── */
+@utility stagger-1 { transition-delay: 0.1s; }
+@utility stagger-2 { transition-delay: 0.2s; }
+@utility stagger-3 { transition-delay: 0.3s; }
+@utility stagger-4 { transition-delay: 0.4s; }
+@utility stagger-5 { transition-delay: 0.5s; }
+
+/* ─── Misc ───────────────────────────────────── */
 @utility no-scrollbar {
-  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
-
 
 #root {
   max-width: 100%;

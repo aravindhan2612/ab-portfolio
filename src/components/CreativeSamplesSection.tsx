@@ -8,142 +8,186 @@ import type { Project } from "./ProjectSection";
 import { useRef } from "react";
 
 const creativeProjects: Project[] = [
+   {
+    id: 1,
+    title: "Android Showcase",
+    description: "Sample repo is to learn and explore the spring framework.",
+    image: "/ab-portfolio/projects/android-lg.svg",
+    tags: ["Android", "Kotlin", "Jetpack Compose", "Coroutines"],
+    demoUrl: "",
+    githubUrl: "https://github.com/aravindhan2612/android_showcase",
+  },
   {
-    id: 4,
+    id: 2,
+    title: "SpringBoot Showcase",
+    description: "Sample repo is to learn and explore the spring framework.",
+    image: "/ab-portfolio/projects/spring-boot.png",
+    tags: ["Spring", "Java", "MongoDB", "Spring AI", "REST API"],
+    demoUrl: "",
+    githubUrl: "https://github.com/aravindhan2612/spring_showcase",
+  },
+  {
+    id: 5,
     title: "MoMusic App",
-    description:
-      "Simple app to showcases a list of music tracks and a media player screen to play selected music",
+    description: "Simple app to showcase a list of music tracks and a media player screen to play selected music.",
     image: "/ab-portfolio/projects/momusic.png",
-    tags: ["Android", "Kotlin", "XML", "Gif", "Recyclerview"],
+    tags: ["Android", "Kotlin", "XML", "Gif", "RecyclerView"],
     demoUrl: "",
     githubUrl: "https://github.com/aravindhan2612/MoMusicApp-Android-native",
   },
   {
-    id: 5,
-    title: "StickerSmash App",
-    description:
-      "Simple app created by following official expo tutorials, to explore the Expo framework",
-    image: "/ab-portfolio/projects/sticksmash.png",
-    tags: ["React-Native", "Android", "iOS", "Web", "Expo", "Typescript"],
-    demoUrl: "",
-    githubUrl:
-      "https://github.com/aravindhan2612/StickerSmash-React-Native-Latest-Sample",
-  },
-  {
-    id: 6,
+    id: 7,
     title: "YoDoApp",
-    description:
-      "Created a sample app to download youtube videos to learn the ktor and workmanager library",
+    description: "Sample app to download YouTube videos — built to learn the Ktor and WorkManager libraries.",
     image: "/ab-portfolio/projects/android-lg.svg",
-    tags: ["Android", "Kotlin", "WorkManager", "Room", "ktor"],
+    tags: ["Android", "Kotlin", "WorkManager", "Room", "Ktor"],
     demoUrl: "",
     githubUrl: "https://github.com/aravindhan2612/YoDoApp-Android-native",
   },
 ];
-type Direction = "left" | "right";
-export const CreativeSamplesSection = () => {
-   const [sampleRef, inSampleView] = useInView({
-    threshold: 0.2,
-    triggerOnce: true,
-  });
-   const scrollRef = useRef<HTMLDivElement>(null);
-    const scroll = (direction: Direction) => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollBy({
-          left: direction === "left" ? -300 : 300,
-          behavior: "smooth",
-        });
-      }
-    };
-  return (
-    <section ref={sampleRef} id="projects" className="px-4 relative">
 
-      {/* creative samples */}
-      <div  className={cn(
-          "container mx-auto max-w-5xl py-24 transition-all duration-1000 ease-out",
-          inSampleView
-            ? "opacity-100 translate-x-0"
-            : "opacity-0 translate-x-100"
-        )}>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Creative <span className="text-primary"> Samples</span>
-        </h2>
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Demonstrative projects designed to showcase my technical skills,
-          creativity, and ability to prototype concepts. These are personal
-          explorations that reflect my interests and technical experiments
-        </p>
-        <div ref={scrollRef}
-          className="flex overflow-x-auto no-scrollbar scroll-smooth gap-4 ">
-          {creativeProjects.map((project, key) => (
-            <div
-              key={key}
-              className="min-w-[270px] bg-card rounded-lg overflow-hidden shadow-xs card-hover"
-            >
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className="p-6">
-                <div className="flex flex-wrap overflow-x gap-2 mb-4">
-                  {project.tags.map((tag, key) => (
-                    <span
-                      key={key}
-                      className="px-2 py-1 text-xs font-medium  border rounded-full bg-primary/20 -text-secondary-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h3 className="text-xl font-semibold mb-1">{project.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                  {project.description}
-                </p>
-                <div className="flex justify-between items-center">
-                  <div className="flex space-x-3">
-                    {project.githubUrl !== "" && (
-                      <TrackedLink
-                        target="_blank"
-                        to={project.githubUrl}
-                        eventName="github_url"
-                        eventParams={{ link: `${project.title} clicked` }}
-                        className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                      >
-                        <FontAwesomeIcon size="xl" icon={faGithub} />
-                      </TrackedLink>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+type Direction = "left" | "right";
+
+export const CreativeSamplesSection = () => {
+  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: Direction) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: direction === "left" ? -300 : 300, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <section ref={ref} id="projects" className="px-4 py-24 relative" style={{ backgroundColor: "var(--surface-elevated)" }}>
+      <div className="container mx-auto max-w-5xl">
+        <div className={cn("reveal", inView && "reveal-visible")}>
+          <div className="mono-label text-center mb-3">Creative Samples</div>
+          <h2 className="section-heading">
+            Personal <span style={{ color: "var(--android-green)" }}>Projects</span>
+          </h2>
+          <p className="section-subheading max-w-2xl mx-auto">
+            Demonstrative projects designed to showcase technical skills, creativity, and
+            ability to prototype concepts — personal explorations and technical experiments.
+          </p>
         </div>
-         <div className="flex py-10 gap-3 justify-center">
+
+        {/* Scrollable card carousel with flanking arrows */}
+        <div className="flex items-center gap-2">
+          {/* Left arrow */}
           <button
             onClick={() => scroll("left")}
-            className=" -translate-y-1/2 bg-primary p-2 rounded-full shadow z-10"
+            className="flex-shrink-0 p-2 border rounded-full transition-all duration-200"
+            style={{ borderColor: "var(--border)", color: "var(--foreground-muted)", backgroundColor: "var(--surface-elevated)" }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.backgroundColor = "var(--surface)";
+              el.style.color = "var(--foreground)";
+              el.style.borderColor = "rgba(61,220,132,0.5)";
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.backgroundColor = "var(--surface-elevated)";
+              el.style.color = "var(--foreground-muted)";
+              el.style.borderColor = "var(--border)";
+            }}
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
+
+          <div ref={scrollRef} className="flex overflow-x-auto no-scrollbar scroll-smooth gap-3 pb-2">
+            {creativeProjects.map(project => (
+              <div
+                key={project.id}
+                className="group min-w-[270px] md-card overflow-hidden flex-shrink"
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.boxShadow = "0 8px 16px rgba(0,0,0,0.3)";
+                  el.style.transform = "translateY(-4px)";
+                  el.style.borderColor = "rgba(61,220,132,0.3)";
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.boxShadow = "0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15)";
+                  el.style.transform = "translateY(0)";
+                  el.style.borderColor = "var(--border)";
+                }}
+              >
+                <div className="h-40 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-4">
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {project.tags.map(tag => (
+                      <span key={tag} className="md-chip">{tag}</span>
+                    ))}
+                  </div>
+                  <h3 className="text-base font-semibold mb-1" style={{ color: "var(--foreground)" }}>
+                    {project.title}
+                  </h3>
+                  <p className="text-xs mb-3 line-clamp-3" style={{ color: "var(--foreground-muted)" }}>
+                    {project.description}
+                  </p>
+                  {project.githubUrl && (
+                    <TrackedLink
+                      target="_blank"
+                      to={project.githubUrl}
+                      eventName="github_url"
+                      eventParams={{ link: `${project.title} clicked` }}
+                      className="text-xs font-medium transition-colors duration-150 flex items-center gap-1"
+                      style={{ color: "var(--foreground-muted)" }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--android-green)"; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--foreground-muted)"; }}
+                    >
+                      <FontAwesomeIcon icon={faGithub} /> GitHub
+                    </TrackedLink>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Right arrow */}
           <button
             onClick={() => scroll("right")}
-            className="-translate-y-1/2 bg-primary p-2 rounded-full shadow z-10"
+            className="flex-shrink-0 p-2 border rounded-full transition-all duration-200"
+            style={{ borderColor: "var(--border)", color: "var(--foreground-muted)", backgroundColor: "var(--surface-elevated)" }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.backgroundColor = "var(--surface)";
+              el.style.color = "var(--foreground)";
+              el.style.borderColor = "rgba(61,220,132,0.5)";
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.backgroundColor = "var(--surface-elevated)";
+              el.style.color = "var(--foreground-muted)";
+              el.style.borderColor = "var(--border)";
+            }}
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-5 h-5" />
           </button>
         </div>
-        <div className="text-center mt-12">
+
+        {/* GitHub CTA */}
+        <div className="text-center mt-8">
           <TrackedLink
-            className="cosmic-button w-fit flex items-center mx-auto gap-2"
+            className="md-button-outlined w-fit flex items-center mx-auto gap-2 active:scale-[0.98]"
             target="_blank"
             eventName="check_my_github_clicked"
             to="https://github.com/aravindhan2612"
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--android-container)";
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent";
+            }}
           >
-            <FontAwesomeIcon icon={faGithubAlt} /> Check My GitHub{" "}
-            <ArrowRight size={16} />
+            <FontAwesomeIcon icon={faGithubAlt} /> Check My GitHub <ArrowRight size={16} />
           </TrackedLink>
         </div>
       </div>
