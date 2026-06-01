@@ -135,15 +135,15 @@ export const ProjectSection = () => {
                   />
                 </div>
                 <div className="p-4">
-                  <div className="flex flex-wrap gap-1 mb-2">
-                    {project.tags.map(tag => (
-                      <span key={tag} className="md-chip">{tag}</span>
-                    ))}
-                  </div>
-                  <h3 className="text-base font-semibold mb-1" style={{ color: "var(--foreground)" }}>
+                   <h3 className="text-base font-semibold p-2" style={{ color: "var(--foreground)" }}>
                     {project.title}
                   </h3>
-                  <p className="text-xs mb-3 line-clamp-3" style={{ color: "var(--foreground-muted)" }}>
+                  <div className="flex overflow-x-auto no-scrollbar gap-2 mb-2">
+                    {project.tags.map(tag => (
+                      <span key={tag} className="md-chip flex-shrink-0">{tag}</span>
+                    ))}
+                  </div>
+                  <p className="text-xs mb-3 text-left line-clamp-3" style={{ color: "var(--foreground-muted)" }}>
                     {project.description}
                   </p>
                   {project.demoUrl && (

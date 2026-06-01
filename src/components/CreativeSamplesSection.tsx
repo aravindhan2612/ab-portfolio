@@ -13,7 +13,7 @@ const creativeProjects: Project[] = [
     title: "Android Showcase",
     description: "Sample repo to learn and explore Android development with modern patterns.",
     image: "/ab-portfolio/projects/android-lg.svg",
-    tags: ["Android", "Kotlin", "Jetpack Compose", "Coroutines"],
+    tags: ["Android", "Kotlin","Coroutines", "Jetpack Compose", ],
     demoUrl: "",
     githubUrl: "https://github.com/aravindhan2612/android_showcase",
   },
@@ -27,7 +27,7 @@ const creativeProjects: Project[] = [
     githubUrl: "https://github.com/aravindhan2612/spring_showcase",
   },
   {
-    id: 5,
+    id: 3,
     title: "MoMusic App",
     description: "Simple app to showcase a list of music tracks and a media player screen to play selected music.",
     image: "/ab-portfolio/projects/momusic.png",
@@ -36,16 +36,7 @@ const creativeProjects: Project[] = [
     githubUrl: "https://github.com/aravindhan2612/MoMusicApp-Android-native",
   },
   {
-    id: 7,
-    title: "YoDoApp",
-    description: "Sample app to download YouTube videos — built to learn the Ktor and WorkManager libraries.",
-    image: "/ab-portfolio/projects/android-lg.svg",
-    tags: ["Android", "Kotlin", "WorkManager", "Room", "Ktor"],
-    demoUrl: "",
-    githubUrl: "https://github.com/aravindhan2612/YoDoApp-Android-native",
-  },
-  {
-    id: 8,
+    id: 4,
     title: "Passblock Android",
     description: "A password manager app to save all passwords in one place — built with clean architecture and MVVM.",
     image: "/ab-portfolio/projects/android-lg.svg",
@@ -54,25 +45,7 @@ const creativeProjects: Project[] = [
     githubUrl: "https://github.com/aravindhan2612/Passblock-Android",
   },
   {
-    id: 9,
-    title: "Melodix",
-    description: "An Android music app built with Kotlin to explore media playback and UI patterns.",
-    image: "/ab-portfolio/projects/android-lg.svg",
-    tags: ["Android", "Kotlin"],
-    demoUrl: "",
-    githubUrl: "https://github.com/aravindhan2612/Melodix",
-  },
-  {
-    id: 10,
-    title: "SpaceTutorial KMP",
-    description: "A Kotlin Multiplatform project exploring shared code across Android and iOS with native UI, Ktor, and SqlDelight.",
-    image: "/ab-portfolio/projects/kotlin.png",
-    tags: ["KMP", "Kotlin", "iOS", "Ktor", "SqlDelight"],
-    demoUrl: "",
-    githubUrl: "https://github.com/aravindhan2612/SpaceTutorial-KMP-Shared-NativeUI",
-  },
-  {
-    id: 11,
+    id: 5,
     title: "Passblock Backend",
     description: "Backend service for Passblock — built to learn Node.js, Express.js, and MongoDB with TypeScript.",
     image: "/ab-portfolio/projects/nodejs.png",
@@ -81,11 +54,21 @@ const creativeProjects: Project[] = [
     githubUrl: "https://github.com/aravindhan2612/passblock-backend-Node.js-Express.js-MongoDB",
   },
   {
-    id: 12,
+    id: 7,
+    title: "SpaceTutorial KMP",
+    description: "A Kotlin Multiplatform project exploring shared code across Android and iOS with native UI, Ktor, and SqlDelight.",
+    image: "/ab-portfolio/projects/kotlin.png",
+    tags: ["KMP", "Kotlin", "iOS", "Ktor", "SqlDelight"],
+    demoUrl: "",
+    githubUrl: "https://github.com/aravindhan2612/SpaceTutorial-KMP-Shared-NativeUI",
+  },
+  
+  {
+    id: 8,
     title: "StickerSmash",
     description: "React Native sample app built by following official Expo tutorials to explore the Expo framework.",
     image: "/ab-portfolio/projects/sticksmash.png",
-    tags: ["React Native", "Expo", "TypeScript"],
+    tags: ["React Native","TypeScript", "Expo", ],
     demoUrl: "",
     githubUrl: "https://github.com/aravindhan2612/StickerSmash-React-Native-Latest-Sample",
   },
@@ -166,14 +149,15 @@ export const CreativeSamplesSection = () => {
                   />
                 </div>
                 <div className="p-4">
-                  <div className="flex flex-wrap gap-1 mb-2">
-                    {project.tags.map(tag => (
-                      <span key={tag} className="md-chip">{tag}</span>
-                    ))}
-                  </div>
-                  <h3 className="text-base font-semibold mb-1" style={{ color: "var(--foreground)" }}>
+                   <h3 className="text-base font-semibold p-2" style={{ color: "var(--foreground)" }}>
                     {project.title}
                   </h3>
+                  <div className="flex overflow-x-auto no-scrollbar gap-2 mb-2">
+                    {project.tags.map(tag => (
+                      <span key={tag} className="md-chip flex-shrink-0">{tag}</span>
+                    ))}
+                  </div>
+                 
                   <p className="text-xs mb-3 line-clamp-3" style={{ color: "var(--foreground-muted)" }}>
                     {project.description}
                   </p>
